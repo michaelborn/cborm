@@ -60,24 +60,36 @@ jobs:
       #     cp build/resources/log4j.properties .engines/acf2018/WEB-INF/cfusion/lib/
       - name: Install Dependencies
         run: |
+          cd test-harness
           box install
           box install commandbox-cfconfig,commandbox-dotenv,commandbox-docbox
-      - name: Start Server
+
+      - name: Start ${{ matrix.cfengine }} Server
         run: |
           cd test-harness
           box server start serverConfigFile="server-${{ matrix.cfengine }}.json" --debug
           curl http://127.0.0.1:60299
+
       - name: Run Web App Tests
         run: |
           cd test-harness
           mkdir -p tests/results/web
           box package set testbox.runner="http://127.0.0.1:60299/tests/runner.cfm"
           box testbox run --verbose outputFile=tests/results/test-results outputFormats=json,antjunit
+
       - name: Publish PR Test Reports
         uses: mikepenz/action-junit-report@v2
         with:
           report_paths: 'test-harness/tests/results/**/*.xml'
           summary: true
+
+      - name: Upload Test Results Artifacts
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: coldbox-test-results-${{ matrix.cfengine }}
+          path: |
+            test-harness/tests/results/**/*
 
       - name: Failure debugging
         if: ${{ failure() }}
