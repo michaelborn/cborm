@@ -62,6 +62,7 @@ jobs:
         run: box install
       - name: Start Server
         run: |
+          cd test-harness
           box server start serverConfigFile="server-${{ matrix.cfengine }}.json" --debug
           curl http://127.0.0.1:60299
       - name: Run Web App Tests
@@ -79,8 +80,8 @@ jobs:
       - name: Failure debugging
         if: ${{ failure() }}
         run: |
-          cat .engines/acf2016/WEB-INF/cfusion/logs/hibernatesql.log
-          cat .engines/acf2018/WEB-INF/cfusion/logs/hibernatesql.log
+          # cat .engines/acf2016/WEB-INF/cfusion/logs/hibernatesql.log
+          # cat .engines/acf2018/WEB-INF/cfusion/logs/hibernatesql.log
           box server log serverConfigFile="server-${{ matrix.cfengine }}.json"
   format:
     name: Format
