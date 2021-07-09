@@ -68,7 +68,7 @@ jobs:
       - name: Run Web App Tests
         run: |
           cd test-harness
-          mkdir tests/results/web
+          mkdir -p tests/results/web
           box package set testbox.runner="http://127.0.0.1:60299/tests/runner.cfm"
           box testbox run --verbose outputFile=tests/results/test-results outputFormats=json,antjunit
       - name: Publish PR Test Reports
@@ -82,6 +82,7 @@ jobs:
         run: |
           # cat .engines/acf2016/WEB-INF/cfusion/logs/hibernatesql.log
           # cat .engines/acf2018/WEB-INF/cfusion/logs/hibernatesql.log
+          cd test-harness
           box server log serverConfigFile="server-${{ matrix.cfengine }}.json"
   format:
     name: Format
