@@ -1,12 +1,6 @@
 /**
-********************************************************************************
-Copyright Since 2005 ColdBox Framework by Luis Majano and Ortus Solutions, Corp
-www.ortussolutions.com
-********************************************************************************
-
-Description :
-	A proxy to hibernate org.hibernate.criterion.Subqueries object to allow
-	for criteria based subquerying
+* *******************************************************************************
+* *******************************************************************************
 */
 component singleton extends="cborm.models.criterion.Restrictions" {
 

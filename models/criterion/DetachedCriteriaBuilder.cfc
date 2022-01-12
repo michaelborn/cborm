@@ -1,12 +1,6 @@
 /**
-********************************************************************************
-Copyright Since 2005 ColdBox Framework by Luis Majano and Ortus Solutions, Corp
-www.ortussolutions.com
-********************************************************************************
-
-Description :
-	Based on the general approach of CriteriaBuilder.cfc, DetachedCriteriaBuilder allows you
-	to create a detached criteria query that can be used:
+* *******************************************************************************
+* *******************************************************************************
 		* in conjuction with critierion.Subqueries to add a programmatically built subquery as a criterion of another criteria query
 		* as a detachedSQLProjection, which allows you to build a programmatic subquery that is added as a projection to another criteria query
 */
@@ -102,6 +96,7 @@ component accessors="true" extends="cborm.models.criterion.BaseBuilder" {
 
 	/**
 	 * Join an association, assigning an alias to the joined association.
+	 *
 	 * @associationName The name of the association property
 	 * @alias           The alias to use for this association property on restrictions
 	 * @joinType        The hibernate join type to use, by default it uses an inner join. Available as properties: criteria.FULL_JOIN, criteria.INNER_JOIN, criteria.LEFT_JOIN
@@ -119,6 +114,7 @@ component accessors="true" extends="cborm.models.criterion.BaseBuilder" {
 	}
 	/**
 	 * Create a new Criteria, "rooted" at the associated entity and using an Inner Join
+	 *
 	 * @associationName The name of the association property to root the restrictions with
 	 * @alias           The alias to use for this association property on restrictions
 	 * @joinType        The hibernate join type to use, by default it uses an inner join. Available as properties: criteria.FULL_JOIN, criteria.INNER_JOIN, criteria.LEFT_JOIN

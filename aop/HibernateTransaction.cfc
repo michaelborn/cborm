@@ -1,19 +1,6 @@
 /**
-********************************************************************************
-Copyright Since 2005 ColdBox Framework by Luis Majano and Ortus Solutions, Corp
-www.ortussolutions.com
-********************************************************************************
-
-@Author Luis Majano
-@Description A cool annotation based Transaction Aspect for WireBox
-	This interceptor will inspect objects for the 'transactional' annotation and if found,
-	it will wrap it in a transaction safe hibernate transaction.  This aspect is a self binding
-	aspect for WireBox that registers itself using the two annotations below
-@classMatcher any
-@methodMatcher annotatedWith:transactional
-
-The transactional annotation can have a value if you are using multi-datasources with ORM.
-The value of the transactional annotation denotes the dsn.
+* *******************************************************************************
+* *******************************************************************************
 **/
 component implements="coldbox.system.aop.MethodInterceptor" accessors="true" {
 
