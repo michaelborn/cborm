@@ -24,6 +24,41 @@ component extends="tests.resources.BaseTest" {
 		expect( getMetadata( r ).name ).toInclude( "org.hibernate.criterion" );
 	}
 
+	function testIsNotReusedObject(){
+		var baseQuery = getWirebox()
+							.getInstance(
+								"cborm.models.criterion.CriteriaBuilder",
+								{ entityName = "User", ormService = new cborm.models.BaseORMService() }
+							);
+		var r = baseQuery.restrictions;
+
+		var sub = baseQuery.createSubcriteria( 'Role', 'role1' );
+		var sub2 = baseQuery.createSubcriteria( 'Role', 'role2' );
+		var sub3 = baseQuery.createSubcriteria( 'Role', 'role3' );
+
+		sub.createAlias( "permission", "perm" )
+			.withProjections( property = "role1.id" );
+
+		sub2.createAlias( "category", "cat" )
+			.withProjections( property = "role2.id" );
+
+		sub3.createAlias( "category", "cat" )
+			.withProjections( property = "role3.id" );
+
+		sub.add( r.eq( "perm.permission", "users.delete" ) );
+		sub2.add( r.eq( "cat.category", "Admin" ) );
+		sub3.add( r.eq( "cat.category", "Foo" ) );
+
+		baseQuery.add(
+			r.or(
+				sub.propertyIn( 'role.id' ),
+				sub2.propertyIn( 'role.id' ),
+				sub3.propertyIn( 'role.id' )
+			)
+		);
+		writeOutput( "<br>" & baseQuery.getSQL( true, true ) );
+	}
+
 	function testGetNativeCriteria(){
 		criteria.withProjections( count = "Role.role" );
 		expect(

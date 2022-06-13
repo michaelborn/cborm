@@ -126,6 +126,18 @@ VALUES
 /*!40000 ALTER TABLE `cacheBox` ENABLE KEYS */;
 UNLOCK TABLES;
 
+# Dump of table permissions
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `permissions`;
+
+CREATE TABLE `permissions` (
+  `permission_id` varchar(50) NOT NULL,
+  `permission` varchar(100) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  `modifydate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`permission_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 # Dump of table categories
 # ------------------------------------------------------------
@@ -339,6 +351,10 @@ DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles` (
   `roleID` int(11) NOT NULL AUTO_INCREMENT,
   `role` varchar(100) DEFAULT NULL,
+  `FKCategoryID` varchar(50) DEFAULT NULL,
+  `FKPermissionID` varchar(50) DEFAULT NULL,
+  CONSTRAINT `categories_fk_1` FOREIGN KEY (`FKCategoryID`) REFERENCES `categories` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `permissions_fk_1` FOREIGN KEY (`FKPermissionID`) REFERENCES `permissions` (`permission_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   PRIMARY KEY (`roleID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

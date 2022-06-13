@@ -19,6 +19,24 @@
 		inverse     ="true"
 		cascade     ="all-delete-orphan";
 
+	// M20 -> Category
+	property
+		name     ="category"
+		cfc      ="Category"
+		fieldtype="many-to-one"
+		fkcolumn ="FKCategoryID"
+		lazy     ="true"
+		notnull  ="false";
+
+	// M20 -> Permission
+	property
+		name     ="permission"
+		cfc      ="Permission"
+		fieldtype="many-to-one"
+		fkcolumn ="FKPermissionID"
+		lazy     ="true"
+		notnull  ="false";
+
 	this.constraints = { "role" : { required : true } };
 
 }
